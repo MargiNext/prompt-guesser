@@ -16,7 +16,7 @@ const Home: React.FC = () => {
         height={300}
         priority
       />
-      <Link href="/SinglePlay">
+      <Link href="/SinglePlayPage">
         PLAY
       </Link>
     </main>
