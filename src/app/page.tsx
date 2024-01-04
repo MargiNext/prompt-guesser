@@ -5,10 +5,17 @@ import Link from 'next/link';
 const Home: React.FC = () => {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-    <h1>AIが生成した画像を見て<br/>
-        生成に使用されたキーワードを<br/>
-        予測しましょう！
-    </h1>
+      <h1>AIが生成した画像を見て<br/>
+          生成に使用されたキーワードを<br/>
+          予測しましょう！
+      </h1>
+      <Image
+        src="/image.png"
+        alt="Next.js Logo"
+        width={300}
+        height={300}
+        priority
+      />
       <Link href="/SinglePlay">
         PLAY
       </Link>
