@@ -2,6 +2,7 @@ import { useRouter } from "next/navigation"
 import Image from 'next/image'
 import Link from 'next/link'
 import TextArea from '../components/TextArea'
+import fetch from 'node-fetch'
 
 export default function AnswerPage() {
   return (

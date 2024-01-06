@@ -6,11 +6,8 @@ const Home: React.FC = () => {
   return (
     // <main className="flex min-h-screen flex-col items-center justify-between text-center p-24">
     <main className="flex min-h-screen flex-col items-center text-center p-12">
-      <div className='flex m-12'>
-        <h1>AIが生成した画像を見て<br/>
-            生成に使用されたキーワードを<br/>
-            予測しましょう！
-        </h1>
+      <div className='flex m-12 text-4xl font-Tektur'>
+        Prompt Guesser
       </div>
       <Image
         src="/image.png"
@@ -20,6 +17,11 @@ const Home: React.FC = () => {
         priority
         className='m-12'
       />
+      <div className='flex m-12 text-xg'>
+        AIが生成した画像を見て<br/>
+        生成に使用されたキーワードを<br/>
+        予測しましょう！
+      </div>
       <div className='m-12'>
         <Link href="/SinglePlayPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           PLAY

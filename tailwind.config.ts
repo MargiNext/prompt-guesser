@@ -13,6 +13,11 @@ const config: Config = {
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       },
+      fontFamily: {
+        Raleway: ['Raleway', 'sans-serif'],
+        fancy: ["Dancing Script"],
+        Tektur: ['Tektur', 'sans-serif']
+      }
     },
   },
   plugins: [],
