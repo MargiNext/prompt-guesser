@@ -1,7 +1,15 @@
+"use client";
 import { useRouter } from "next/navigation"
 import Image from 'next/image'
 import Link from 'next/link'
 import TextArea from '../components/TextArea'
+
+interface RootState {
+  count: number;
+}
+interface AnswerState {
+  answer: string;
+}
 
 export default function SinglePlay() {
   return (
@@ -21,6 +29,7 @@ export default function SinglePlay() {
           cols={50}
         />
       </div>
+      
       <div className="m-12">
         <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           予測する
