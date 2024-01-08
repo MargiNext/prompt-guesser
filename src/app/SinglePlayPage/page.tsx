@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation"
 import Image from 'next/image'
 import Link from 'next/link'
 import TextArea from '../components/TextArea'
+import { useSelector } from 'react-redux';
 
 interface RootState {
   count: number;
@@ -12,6 +13,7 @@ interface AnswerState {
 }
 
 export default function SinglePlay() {
+  const textData = useSelector((state: AnswerState) => state.answer)
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       <Image
@@ -22,6 +24,7 @@ export default function SinglePlay() {
         priority
         className="m-12"
       />
+      <p>あなたのプロンプト: {textData}</p>
       <div className="m-12">
         <TextArea 
           placeholder="Enter your prompt"
