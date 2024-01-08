@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 interface DataState {
-  answer: string;
+  text: string;
 }
 
 const initialState: DataState = {
-  answer: 'hoge'
+  text: 'hoge'
 };
 
 interface Action {
@@ -25,18 +25,20 @@ interface Action {
 
 // export default dataReducer;
 
+console.log('Initialize')
+
 
 export const dataSlice = createSlice({
-  name: 'dataSlice',
+  name: 'textData',
   initialState,
   reducers: {
-    answerPrompt: (state, action: PayloadAction<string>) => {
+    setAnswerData: (state, action: PayloadAction<string>) => {
     // answer: (state, action:Action) => {
       // state.answer = 'hogehoge'
-      state.answer = action.payload
+      state.text = action.payload
     }
   }
 })
 
-export const { answerPrompt } = dataSlice.actions
+export const { setAnswerData } = dataSlice.actions
 export default dataSlice.reducer

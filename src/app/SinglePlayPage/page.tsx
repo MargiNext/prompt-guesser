@@ -4,17 +4,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 import TextArea from '../components/TextArea'
 import { useSelector } from 'react-redux';
+import { RootState } from '../store'
 
-interface RootState {
-  count: number;
-}
 interface AnswerState {
   answer: string;
 }
 
 export default function SinglePlay() {
-  const textData = useSelector((state: AnswerState) => state.answer)
-  console.log(textData)
+  const textData = useSelector((state: RootState) => state.answer.text)
+  console.log('PlayPage:' + textData)
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       <Image

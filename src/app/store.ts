@@ -7,7 +7,10 @@ import dataReducer from './reducers/dataReducer'
 // export default store
 
 export const store = configureStore({
-  reducer: dataReducer,
+  reducer: {
+    answer: dataReducer,
+    // answer: dataReducer,
+  }
   // devTools: process.env.NODE_ENV !== 'production',
 });
 

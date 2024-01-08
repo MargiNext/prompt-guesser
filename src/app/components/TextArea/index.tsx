@@ -1,4 +1,4 @@
-import { answerPrompt } from '@/app/reducers/dataReducer';
+import { setAnswerData } from '@/app/reducers/dataReducer';
 import React, { TextareaHTMLAttributes } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,7 +10,7 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
     const answer = event.target.value
     console.log(answer)
     // dispatch({ type: 'ANSWER', payload: answer })
-    dispatch(answerPrompt(answer))
+    dispatch(setAnswerData(answer))
   }
   return <textarea onChange={handleTextareaChange} className="border p-2 rounded-md text-black" {...props} />;
 };
