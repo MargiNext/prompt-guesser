@@ -1,10 +1,12 @@
+"use client";
 import React from 'react'
 import ReactDOM from 'react-dom'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Header } from './components/Header'
 import './globals.css'
-import Provide from './provide'
+// import Provide from './provide'
+import { Provider } from 'react-redux'
 import { store } from './store'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -25,12 +27,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         {/* <Header /> */}
-        {/* {typeof window !== 'undefined' && ( */}
-          {/* <Provider store={store}> */}
-          <Provide>
+          <Provider store={store}>
+          {/* <Provide> */}
             {children}
-          </Provide>
-        {/* )} */}
+          {/* </Provide> */}
+          </Provider>
       </body>
     </html>
   )
