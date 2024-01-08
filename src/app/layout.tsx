@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Header } from './components/Header'
 import './globals.css'
-import { Provider } from 'react-redux'
+import Provide from './provide'
 import { store } from './store'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -27,10 +27,12 @@ export default function RootLayout({
         {/* <Header /> */}
         {/* {typeof window !== 'undefined' && ( */}
           {/* <Provider store={store}> */}
+          <Provide>
             {children}
-          {/* </Provider> */}
+          </Provide>
         {/* )} */}
       </body>
     </html>
   )
 }
+

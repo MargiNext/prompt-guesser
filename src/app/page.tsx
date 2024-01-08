@@ -2,12 +2,12 @@
 import Image from 'next/image'
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
-import { Provider } from 'react-redux'
-import { store } from './store'
+// import { Provider } from 'react-redux'
+// import { store } from './store'
 
 const Home: React.FC = () => {
   return (
-    <Provider store={store}>
+    // <Provider store={store}>
     <main className="flex min-h-screen flex-col items-center text-center p-12">
       <div className='flex m-12 text-4xl font-Tektur'>
         Prompt Guesser
@@ -31,7 +31,7 @@ const Home: React.FC = () => {
         </Link>
       </div>
     </main>
-    </Provider>
+    // </Provider>
   )
 };
 
