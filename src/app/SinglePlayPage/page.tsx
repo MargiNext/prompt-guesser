@@ -14,6 +14,7 @@ interface AnswerState {
 
 export default function SinglePlay() {
   const textData = useSelector((state: AnswerState) => state.answer)
+  console.log(textData)
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       <Image
