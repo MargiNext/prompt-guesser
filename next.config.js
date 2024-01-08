@@ -1,8 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimentalFeatures: {
-    serverComponentsForAllRoutes: true,
-  },
+  target: 'serverless'
 }
 
 module.exports = nextConfig
