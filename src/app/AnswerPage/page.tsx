@@ -11,6 +11,8 @@ interface AnswerState {
 }
 
 export default function AnswerPage() {
+  const State = useSelector((state: AnswerState) => state)
+  console.log(State)
   const textData = useSelector((state: AnswerState) => state.answer)
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
