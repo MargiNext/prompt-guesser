@@ -5,16 +5,19 @@ import Link from 'next/link'
 import TextArea from '../components/TextArea'
 import fetch from 'node-fetch'
 import { useSelector } from 'react-redux';
+import { RootState } from '../store'
+// import { Provider } from 'react-redux'
+// import { store } from '../store'
 
 interface AnswerState {
   answer: string;
 }
 
 export default function AnswerPage() {
-  const State = useSelector((state: AnswerState) => state)
-  console.log(State)
-  const textData = useSelector((state: AnswerState) => state.answer)
+  const textData = useSelector((state: RootState) => state.answer.text)
+  console.log('AnswerPage:' + textData)
   return (
+    // <Provider store={store}>
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Image
         src="/image.png"
@@ -28,5 +31,6 @@ export default function AnswerPage() {
         戻る
       </Link>
     </main>
+    // </Provider>
   )
 }

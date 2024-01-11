@@ -6,6 +6,13 @@ import dataReducer from './reducers/dataReducer'
 
 // export default store
 
-export default configureStore({
-  reducer: dataReducer,
+export const store = configureStore({
+  reducer: {
+    answer: dataReducer,
+    // answer: dataReducer,
+  }
+  // devTools: process.env.NODE_ENV !== 'production',
 });
+
+export type RootState = ReturnType<typeof store.getState>
+export type AppDispatch = typeof store.dispatch
