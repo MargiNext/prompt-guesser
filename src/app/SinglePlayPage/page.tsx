@@ -23,7 +23,7 @@ export default function SinglePlay() {
   const dispatch = useDispatch();
   const textData = useSelector((state: RootState) => state.answerData.answerPrompt)
 
-  const id = 1;
+  const id = 2;
   const [questionData, setQuestionData] = useState<QuestionData | null>(null);
   useEffect(() => {
     const fetchData = async () => {
@@ -54,14 +54,12 @@ export default function SinglePlay() {
   };
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
-      <p>{prompt}</p>
       <Image
-        src="/image.png"
-        alt="Next.js Logo"
-        width={300}
-        height={300}
+        src={`data:image/png;base64,${img}`}
+        alt="correctImage"
+        width={512}
+        height={512}
         priority
-        className="m-12"
       />
       <p>あなたのプロンプト: {textData}</p>
       <div className="m-12">

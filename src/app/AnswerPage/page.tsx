@@ -20,14 +20,16 @@ export default function AnswerPage() {
   return (
     // <Provider store={store}>
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      
       <Image
-        src="/image.png"
-        alt="Next.js Logo"
+        src={`data:image/png;base64,${correctImage}`}
+        alt="correctImage"
         width={300}
         height={300}
         priority
       />
-       <p>正解画像: {correctImage}</p>
+      {/* <img src={`data:image/png;base64,${correctImage}`} alt="correctImage"></img> */}
+       {/* <p>正解画像: {correctImage}</p> */}
        <p>正解プロンプト: {correctPrompt}</p>
        <p>あなたのプロンプト: {textData}</p>
       <Link href="/">
