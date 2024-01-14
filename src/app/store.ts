@@ -8,10 +8,9 @@ import dataReducer from './reducers/dataReducer'
 
 export const store = configureStore({
   reducer: {
-    answer: dataReducer,
-    // answer: dataReducer,
+    answerData: dataReducer,
+    correctData: dataReducer,
   }
-  // devTools: process.env.NODE_ENV !== 'production',
 });
 
 export type RootState = ReturnType<typeof store.getState>

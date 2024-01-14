@@ -14,8 +14,9 @@ interface AnswerState {
 }
 
 export default function AnswerPage() {
-  const textData = useSelector((state: RootState) => state.answer.text)
-  console.log('AnswerPage:' + textData)
+  const textData = useSelector((state: RootState) => state.answerData.answerPrompt)
+  const correctPrompt = useSelector((state: RootState) => state.correctData.correctPrompt)
+  const correctImage = useSelector((state: RootState) => state.correctData.correctImage)
   return (
     // <Provider store={store}>
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -26,6 +27,8 @@ export default function AnswerPage() {
         height={300}
         priority
       />
+       <p>正解画像: {correctImage}</p>
+       <p>正解プロンプト: {correctPrompt}</p>
        <p>あなたのプロンプト: {textData}</p>
       <Link href="/">
         戻る

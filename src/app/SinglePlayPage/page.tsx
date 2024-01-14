@@ -3,8 +3,9 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import TextArea from '../components/TextArea'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
+import { setCorrectData } from '@/app/reducers/dataReducer';
 // import { Provider } from 'react-redux'
 // import { store } from '../store'
 
@@ -19,7 +20,8 @@ interface QuestionData {
 }
 
 export default function SinglePlay() {
-  const textData = useSelector((state: RootState) => state.answer.text)
+  const dispatch = useDispatch();
+  const textData = useSelector((state: RootState) => state.answerData.answerPrompt)
 
   const id = 1;
   const [questionData, setQuestionData] = useState<QuestionData | null>(null);
@@ -47,6 +49,9 @@ export default function SinglePlay() {
     prompt = questionData.prompt;
     img = questionData.img;
   }
+  const handleSetText = () => {
+    dispatch(setCorrectData({prompt, img}));
+  };
   return (
     <main className="flex min-h-screen flex-col items-center p-12">
       <p>{prompt}</p>
@@ -68,7 +73,7 @@ export default function SinglePlay() {
       </div>
       
       <div className="m-12">
-        <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+        <Link href="/AnswerPage" onClick={handleSetText} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           予測する
         </Link>
       </div>
