@@ -1,5 +1,5 @@
 "use client";
-import { useRouter } from "next/navigation"
+import { useEffect, useState } from 'react';
 import Image from 'next/image'
 import Link from 'next/link'
 import TextArea from '../components/TextArea'
@@ -9,15 +9,47 @@ import { RootState } from '../store'
 // import { store } from '../store'
 
 interface AnswerState {
+  // question_prompt: string;
   answer: string;
+}
+interface QuestionData {
+  id: number;
+  prompt: string;
+  img: string;
 }
 
 export default function SinglePlay() {
   const textData = useSelector((state: RootState) => state.answer.text)
-  console.log('PlayPage:' + textData)
+
+  const id = 1;
+  const [questionData, setQuestionData] = useState<QuestionData | null>(null);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`/api/question?id=${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setQuestionData(data);
+        } else {
+          console.error('Error fetching data:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
+  let prompt = '';
+  let img = '';
+  if (questionData) {
+    console.log(questionData.img)
+    prompt = questionData.prompt;
+    img = questionData.img;
+  }
   return (
-    // <Provider store={store}>
     <main className="flex min-h-screen flex-col items-center p-12">
+      <p>{prompt}</p>
       <Image
         src="/image.png"
         alt="Next.js Logo"
