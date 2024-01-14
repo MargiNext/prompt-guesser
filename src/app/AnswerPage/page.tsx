@@ -43,29 +43,34 @@ export default function AnswerPage() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <Image
-        src={`data:image/png;base64,${correctImage}`}
-        alt="correctImage"
-        width={512}
-        height={512}
-        priority
-      />
-      <p>正解プロンプト: {correctPrompt}</p>
-      <div className='m-12'>
-      <Image
-        src={`data:image/png;base64,${img}`}
-        alt="correctImage"
-        width={512}
-        height={512}
-        priority
-      />
-        {/* <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> */}
-        <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
-          あなたのプロンプトで画像を生成
-          {/* {loading ? 'Loading...' : 'Fetch Image'} */}
-        </Link>
+      <div className='flex flex-row items-start justify-between'>
+        <div className='m-3 flex flex-col items-center justify-between'>
+          <Image
+            src={`data:image/png;base64,${correctImage}`}
+            alt="correctImage"
+            width={512}
+            height={512}
+            priority
+          />
+          <p>正解プロンプト: {correctPrompt}</p>
+        </div>
+        <div className='m-3 flex flex-col items-center justify-between'>
+          <Image
+            src={`data:image/png;base64,${img}`}
+            alt="correctImage"
+            width={512}
+            height={512}
+            priority
+          >
+          </Image>
+          {/* <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> */}
+          <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+            あなたのプロンプトで画像を生成
+            {/* {loading ? 'Loading...' : 'Fetch Image'} */}
+          </Link>
+          <p>あなたのプロンプト: {textData}</p>
+        </div>
       </div>
-      <p>あなたのプロンプト: {textData}</p>
       <div className='m-12'>
         <Link href="/" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           ホームへ戻る
