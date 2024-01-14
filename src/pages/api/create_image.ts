@@ -32,7 +32,7 @@ async function postStableDiffusionApi(engineId: string, apiHost: string, apiKey:
 
   if (!response.ok) {
     throw new Error(`Non-200 response: ${await response.text()}`)
-    res.status(400).json({ error: "Failed to create image." })
+    //res.status(400).json({ error: "Failed to create image." })
   }
 
   interface GenerationResponse {
