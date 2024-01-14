@@ -6,15 +6,8 @@ import TextArea from '../components/TextArea'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
 import { setCorrectData } from '@/app/reducers/dataReducer';
-// import { Provider } from 'react-redux'
-// import { store } from '../store'
 
-interface AnswerState {
-  // question_prompt: string;
-  answer: string;
-}
 interface QuestionData {
-  id: number;
   prompt: string;
   img: string;
 }
@@ -45,7 +38,6 @@ export default function SinglePlay() {
   let prompt = '';
   let img = '';
   if (questionData) {
-    console.log(questionData.img)
     prompt = questionData.prompt;
     img = questionData.img;
   }
