@@ -15,7 +15,10 @@ export default function AnswerPage() {
   const correctPrompt = useSelector((state: RootState) => state.correctData.correctPrompt)
   const correctImage = useSelector((state: RootState) => state.correctData.correctImage)
   const [genImg, setGenImg] = useState<GenImg | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const createImageStyle: React.CSSProperties = {
+    filter: `blur(10px)`,
+  };
   const handleGenImg = () => {
     const fetchData = async () => {
       try {
@@ -54,20 +57,30 @@ export default function AnswerPage() {
           />
           <p>正解プロンプト: {correctPrompt}</p>
         </div>
-        <div className='m-3 flex flex-col items-center justify-between'>
-          <Image
-            src={`data:image/png;base64,${img}`}
-            alt="correctImage"
-            width={512}
-            height={512}
-            priority
-          >
-          </Image>
+        <div className='m-3 flex flex-col items-center text-center justify-between relative'>
+          {loading ? (
+            <Link href="/AnswerPage" onClick={handleGenImg}>
+              <Image
+                src="/image.png"
+                alt="A dog"
+                width={512}
+                height={512}
+                priority
+                className='filter blur-md ml-auto mr-auto'
+              />
+              {/* <div className='absolute top-1/2 mx-auto'>あなたのプロンプトで生成</div> */}
+            </Link>
+          ) : (
+            <Image
+              src={`data:image/png;base64,${img}`}
+              alt="correctImage"
+              width={512}
+              height={512}
+              priority
+              onLoad={()=>setLoading(false)}
+            />
+          )}
           {/* <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> */}
-          <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
-            あなたのプロンプトで画像を生成
-            {/* {loading ? 'Loading...' : 'Fetch Image'} */}
-          </Link>
           <p>あなたのプロンプト: {textData}</p>
         </div>
       </div>
