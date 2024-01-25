@@ -17,6 +17,12 @@ const config: Config = {
         Raleway: ['Raleway', 'sans-serif'],
         fancy: ["Dancing Script"],
         Tektur: ['Tektur', 'sans-serif']
+      },
+      width: {
+        '512': '512px',
+      },
+      height: {
+        '512': '512px',
       }
     },
   },
