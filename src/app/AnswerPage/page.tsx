@@ -16,10 +16,12 @@ export default function AnswerPage() {
   const correctImage = useSelector((state: RootState) => state.correctData.correctImage)
   const [genImg, setGenImg] = useState<GenImg | null>(null);
   const [loading, setLoading] = useState(true);
+  const [preset, setPreset] = useState(true);
   const createImageStyle: React.CSSProperties = {
     filter: `blur(10px)`,
   };
   const handleGenImg = () => {
+    setPreset(false);
     const fetchData = async () => {
       try {
         const response = await fetch(`/api/question?id=2`);
@@ -59,19 +61,16 @@ export default function AnswerPage() {
           <p>正解プロンプト: {correctPrompt}</p>
         </div>
         <div className='m-3 flex flex-col items-center text-center justify-between relative'>
-          {loading ? (
-            <Link href="/AnswerPage" onClick={handleGenImg}>
-              <Image
-                src="/image.png"
-                alt="A dog"
-                width={512}
-                height={512}
-                priority
-                className='filter blur-md ml-auto mr-auto'
-              />
-              {/* <div className='absolute top-1/2 mx-auto'>あなたのプロンプトで生成</div> */}
+          <div className='flex w-512 h-512 justify-center items-center'>
+          {preset && loading && (
+            <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+              あなたのプロンプトで画像生成
             </Link>
-          ) : (
+          )}
+          {!preset && loading && (
+            <div className="animate-spin h-14 w-14 bg-blue-300 rounded-xl"></div>
+          )}
+          {!preset && !loading && (
             <Image
               src={`data:image/png;base64,${img}`}
               alt="correctImage"
@@ -81,6 +80,7 @@ export default function AnswerPage() {
               onLoad={()=>setLoading(false)}
             />
           )}
+          </div>
           {/* <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> */}
           <p>あなたのプロンプト: {textData}</p>
         </div>
