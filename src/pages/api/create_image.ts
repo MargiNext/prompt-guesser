@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import fetch from 'node-fetch'
-import fs from 'node:fs'
 
 // REF: https://platform.stability.ai/docs/api-reference#tag/v1generation/operation/textToImage
 async function postStableDiffusionApi(engineId: string, apiHost: string, apiKey: string, prompt: string): Promise<any> {
@@ -57,13 +56,12 @@ async function postStableDiffusionApi(engineId: string, apiHost: string, apiKey:
 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // parse request
-  const { query, _method } = req
-  const prompt = query.prompt
+  const prompt: string = req.query.prompt as string
 
   // environmental for stable diffusion
   const engineId = 'stable-diffusion-v1-6'
   const apiHost = process.env.API_HOST ?? 'https://api.stability.ai'
-  const apiKey = process.env.STABILITY_API_KEY
+  const apiKey = process.env.STABILITY_API_KEY ?? ''
 
   let img
   await postStableDiffusionApi(engineId, apiHost, apiKey, prompt)

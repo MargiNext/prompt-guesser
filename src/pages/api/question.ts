@@ -4,7 +4,7 @@ import { DynamoDBClient, GetItemCommand } from '@aws-sdk/client-dynamodb'
 import { unmarshall } from '@aws-sdk/util-dynamodb'
 import { S3Client, GetObjectCommand } from '@aws-sdk/client-s3'
 
-async function getQuestionInfo(questionId: int): Promise<any> {
+async function getQuestionInfo(questionId: Number): Promise<any> {
   const client = new DynamoDBClient({
     credentials: fromEnv(),
     region: 'ap-northeast-1',
@@ -22,13 +22,9 @@ async function getQuestionInfo(questionId: int): Promise<any> {
 
   const command = new GetItemCommand(input)
 
-  let item
-  try {
-    const response = await client.send(command)
-    item = unmarshall(response.Item)
-  } catch (error) {
-    res.status(400).json({ error: "Failed to get question item from dynamodb." })
-  }
+  const response = await client.send(command)
+  if (response.Item == undefined) throw new Error('The response item is empty.')
+  const item = unmarshall(response.Item)
 
   return item
 }
@@ -46,13 +42,9 @@ async function getImage(key: string): Promise<any> {
 
   const command = new GetObjectCommand(input)
 
-  let imageData
-  try {
-    const response = await client.send(command)
-    imageData = await response.Body.transformToString("base64")
-  } catch (error) {
-    res.status(400).json({ error: "Failed to get image from s3." })
-  }
+  const response = await client.send(command)
+  if (response.Body == undefined) throw new Error('The response body is empty.')
+  const imageData = await response.Body.transformToString("base64")
 
   return imageData
 }
@@ -66,22 +58,31 @@ async function getImage(key: string): Promise<any> {
 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   // parse request
-  const { query, _method } = req
+  const id: string = req.query.id as string
 
   // sanitizing
-  let questionId
-  if(isNaN(parseInt(query.id as string, 10))) {
+  let questionId: Number
+  if(isNaN(parseInt(id as string, 10))) {
     return res.status(400).json({ error: "ID is invalid." })
   } else {
-    questionId = parseInt(query.id as string, 10)
+    questionId = parseInt(id as string, 10)
   }
 
   let prompt, img
   const getQuestion = async() => {
-    const item = await getQuestionInfo(questionId)
+    let item
+    try {
+      item = await getQuestionInfo(questionId)
+    } catch (error) {
+      res.status(400).json({ error: "Failed to get question item from dynamodb." })
+    }
     prompt = item.prompt
     const imgKey = item.img
-    img = await getImage(imgKey)
+    try {
+      img = await getImage(imgKey)
+    } catch (error) {
+      res.status(400).json({ error: "Failed to get image from s3." })
+    }
   }
 
   await getQuestion()
