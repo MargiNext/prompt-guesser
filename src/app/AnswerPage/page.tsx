@@ -21,18 +21,30 @@ export default function AnswerPage() {
   const [loading, setLoading] = useState(true);
   const [preset, setPreset] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
-  const createImageStyle: React.CSSProperties = {
-    filter: `blur(10px)`,
-  };
+  const promptRefAns = useRef<HTMLDivElement>(null);
+  const promptRefCor = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     if (containerRef.current) {
       const width = containerRef.current.offsetWidth;
       if (width > 512) {
         containerRef.current.style.height = `512px`;
+        containerRef.current.style.width = `512px`;
       }
       else {
-        // containerRef.current.style.height = `512px`;
         containerRef.current.style.height = `${width}px`;
+      }
+    }
+    if (promptRefAns.current) {
+      const width = promptRefAns.current.offsetWidth;
+      if (width > 512) {
+        promptRefAns.current.style.width = `512px`;
+      }
+    }
+    if (promptRefCor.current) {
+      const width = promptRefCor.current.offsetWidth;
+      if (width > 512) {
+        promptRefCor.current.style.width = `512px`;
       }
     }
   },[]);
@@ -53,7 +65,6 @@ export default function AnswerPage() {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
-        console.log(loading)
       }
     };
     fetchData();
@@ -68,20 +79,14 @@ export default function AnswerPage() {
     <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
     <Header />
       <div className='flex w-full flex-col md:flex-row'>
-        <div className='flex w-full flex-col items-center justify-center'>
-          <Image
-            src={`data:image/png;base64,${correctImage}`}
-            alt="correctImage"
-            width={512}
-            height={512}
-            priority
-          />
-          <p>正解プロンプト: {correctPrompt}</p>
-        </div>
-        <div className='flex mt-8 md:mt-0 w-full flex-col items-center text-center justify-center'>
-          {/* <div className='flex w-512 h-512 justify-center items-center'> */}
-          {/* <div className='flex w-full justify-center items-center'> */}
-          <div ref={containerRef} className='flex w-full justify-center items-center'>
+        <div className='flex w-full flex-col items-center text-center justify-center'>
+          {/* <div ref={promptRefAns} className='w-full rounded-md bg-blue-100'>
+            <p className='text-black-400'>あなたのプロンプト</p>
+            <p className='text-sky-400'>{textData}</p>
+          </div> */}
+          <p>回答</p>
+          <p ref={promptRefAns} className='w-full rounded-md bg-blue-100 text-sky-400'>{textData}</p>
+          <div ref={containerRef} className='border-2 rounded-md flex w-full justify-center items-center'>
             {preset && loading && (
               <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
                 あなたのプロンプトで画像生成
@@ -97,12 +102,23 @@ export default function AnswerPage() {
                 width={512}
                 height={512}
                 priority
+                className='rounded-md'
                 onLoad={()=>setLoading(false)}
               />
             )}
           </div>
-          {/* <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> */}
-          <p>あなたのプロンプト: {textData}</p>
+        </div>
+        <div className='flex mt-8 md:mt-0 w-full flex-col items-center justify-center'>
+          <p>正解</p>
+          <p ref={promptRefCor} className='w-full rounded-md bg-blue-100 text-rose-500'>{correctPrompt}</p>
+          <Image
+            src={`data:image/png;base64,${correctImage}`}
+            alt="correctImage"
+            width={512}
+            height={512}
+            priority
+            className='rounded-md'
+          />
         </div>
       </div>
       <div className='flex flex-col m-12'>

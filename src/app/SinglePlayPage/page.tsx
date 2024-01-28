@@ -35,7 +35,6 @@ export default function SinglePlay() {
         console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
-        console.log(loading)
       }
     };
     if (containerRef.current) {
