@@ -12,7 +12,7 @@ const TextArea: React.FC<TextAreaProps> = (props) => {
     // dispatch({ type: 'ANSWER', payload: answer })
     dispatch(setAnswerData(answer))
   }
-  return <textarea onChange={handleTextareaChange} className="border p-2 rounded-md text-black" {...props} />;
+  return <textarea onChange={handleTextareaChange} className="w-full border p-2 rounded-md text-black" {...props} />;
 };
 
 export default TextArea;
