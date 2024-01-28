@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
 import { useEffect, useState, useRef } from 'react';
 import { incrementQNum } from '../reducers/dataReducer';
+import { Header } from '@/app/components/Header'
 
 interface GenImg {
   // prompt: string;
@@ -65,6 +66,7 @@ export default function AnswerPage() {
   }
   return (
     <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
+    <Header />
       <div className='flex w-full flex-col md:flex-row'>
         <div className='flex w-full flex-col items-center justify-center'>
           <Image
