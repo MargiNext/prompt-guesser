@@ -39,7 +39,12 @@ export default function SinglePlay() {
     };
     if (containerRef.current) {
       const width = containerRef.current.offsetWidth;
-      containerRef.current.style.height = `${width}px`;
+      if (width > 512) {
+        containerRef.current.style.height = `512px`;
+      }
+      else {
+        containerRef.current.style.height = `${width}px`;
+      }
     }
     fetchData();
   }, [id]);
@@ -53,7 +58,7 @@ export default function SinglePlay() {
     dispatch(setCorrectData({prompt, img}));
   };
   return (
-    <main className="md:flex min-h-screen flex-col items-center text-center p-12">
+    <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
       {loading ? (
         <div ref={containerRef} className='flex w-full justify-center items-center'>
           <div className="animate-spin h-14 w-14 bg-blue-300 rounded-xl"></div>
@@ -68,11 +73,8 @@ export default function SinglePlay() {
         />
       )}
       {/* <p>あなたのプロンプト: {textData}</p> */}
-      <div className="mt-12">
-        <TextArea 
-          placeholder="Enter your prompt"
-          rows={3}
-        />
+      <div className="mt-12 w-full md:w-5/12">
+        <TextArea />
       </div>
       
       <div className="mt-12">
