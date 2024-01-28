@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useSelector } from 'react-redux';
 import { RootState } from '../store'
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 interface GenImg {
   // prompt: string;
@@ -17,9 +17,22 @@ export default function AnswerPage() {
   const [genImg, setGenImg] = useState<GenImg | null>(null);
   const [loading, setLoading] = useState(true);
   const [preset, setPreset] = useState(true);
+  const containerRef = useRef<HTMLDivElement>(null);
   const createImageStyle: React.CSSProperties = {
     filter: `blur(10px)`,
   };
+  useEffect(() => {
+    if (containerRef.current) {
+      const width = containerRef.current.offsetWidth;
+      if (width > 512) {
+        containerRef.current.style.height = `512px`;
+      }
+      else {
+        // containerRef.current.style.height = `512px`;
+        containerRef.current.style.height = `${width}px`;
+      }
+    }
+  },[]);
   const handleGenImg = () => {
     setPreset(false);
     const fetchData = async () => {
@@ -48,9 +61,9 @@ export default function AnswerPage() {
     img = genImg.img;
   }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className='flex flex-row items-start justify-between'>
-        <div className='m-3 flex flex-col items-center justify-between'>
+    <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
+      <div className='flex w-full flex-col md:flex-row'>
+        <div className='flex w-full flex-col items-center justify-center'>
           <Image
             src={`data:image/png;base64,${correctImage}`}
             alt="correctImage"
@@ -60,26 +73,28 @@ export default function AnswerPage() {
           />
           <p>正解プロンプト: {correctPrompt}</p>
         </div>
-        <div className='m-3 flex flex-col items-center text-center justify-between relative'>
-          <div className='flex w-512 h-512 justify-center items-center'>
-          {preset && loading && (
-            <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
-              あなたのプロンプトで画像生成
-            </Link>
-          )}
-          {!preset && loading && (
-            <div className="animate-spin h-14 w-14 bg-blue-300 rounded-xl"></div>
-          )}
-          {!preset && !loading && (
-            <Image
-              src={`data:image/png;base64,${img}`}
-              alt="correctImage"
-              width={512}
-              height={512}
-              priority
-              onLoad={()=>setLoading(false)}
-            />
-          )}
+        <div className='flex mt-8 md:mt-0 w-full flex-col items-center text-center justify-center'>
+          {/* <div className='flex w-512 h-512 justify-center items-center'> */}
+          {/* <div className='flex w-full justify-center items-center'> */}
+          <div ref={containerRef} className='flex w-full justify-center items-center'>
+            {preset && loading && (
+              <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+                あなたのプロンプトで画像生成
+              </Link>
+            )}
+            {!preset && loading && (
+              <div className="animate-spin h-14 w-14 bg-blue-300 rounded-xl"></div>
+            )}
+            {!preset && !loading && (
+              <Image
+                src={`data:image/png;base64,${img}`}
+                alt="correctImage"
+                width={512}
+                height={512}
+                priority
+                onLoad={()=>setLoading(false)}
+              />
+            )}
           </div>
           {/* <Link href="/AnswerPage" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'> */}
           <p>あなたのプロンプト: {textData}</p>
