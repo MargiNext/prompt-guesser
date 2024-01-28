@@ -6,6 +6,7 @@ import TextArea from '../components/TextArea'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
 import { setCorrectData } from '@/app/reducers/dataReducer';
+import { Header } from '@/app/components/Header'
 
 interface QuestionData {
   prompt: string;
@@ -59,6 +60,7 @@ export default function SinglePlay() {
   };
   return (
     <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
+    <Header />
       {loading ? (
         <div ref={containerRef} className='flex w-full justify-center items-center'>
           <div className="animate-spin h-14 w-14 bg-blue-300 rounded-xl"></div>

@@ -10,6 +10,7 @@ export const store = configureStore({
   reducer: {
     answerData: dataReducer,
     correctData: dataReducer,
+    qNumData: dataReducer,
   }
 });
 
