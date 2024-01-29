@@ -37,14 +37,23 @@ export default function AnswerPage() {
     }
     if (promptRefAns.current) {
       const width = promptRefAns.current.offsetWidth;
-      if (width > 512) {
+      if (width >= 512) {
         promptRefAns.current.style.width = `512px`;
+        promptRefAns.current.style.height = `64px`;
+      }
+      else {
+        promptRefAns.current.style.height = `32px`;
       }
     }
     if (promptRefCor.current) {
       const width = promptRefCor.current.offsetWidth;
-      if (width > 512) {
+      if (width >= 512) {
         promptRefCor.current.style.width = `512px`;
+        promptRefCor.current.style.height = `64px`;
+      }
+      else {
+        promptRefCor.current.style.height = `32px`;
+        console.log(width)
       }
     }
   },[]);
@@ -80,12 +89,8 @@ export default function AnswerPage() {
     <Header />
       <div className='flex w-full flex-col md:flex-row'>
         <div className='flex w-full flex-col items-center text-center justify-center'>
-          {/* <div ref={promptRefAns} className='w-full rounded-md bg-blue-100'>
-            <p className='text-black-400'>あなたのプロンプト</p>
-            <p className='text-sky-400'>{textData}</p>
-          </div> */}
-          <p>回答</p>
-          <p ref={promptRefAns} className='w-full rounded-md bg-blue-100 text-sky-400'>{textData}</p>
+          <p className='text-xl font-bold'>回答</p>
+          <p ref={promptRefAns} className='flex justify-center items-center text-xl w-full rounded-md bg-blue-100 text-gray-600'>{textData}</p>
           <div ref={containerRef} className='border-2 rounded-md flex w-full justify-center items-center'>
             {preset && loading && (
               <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
@@ -109,8 +114,8 @@ export default function AnswerPage() {
           </div>
         </div>
         <div className='flex mt-8 md:mt-0 w-full flex-col items-center justify-center'>
-          <p>正解</p>
-          <p ref={promptRefCor} className='w-full rounded-md bg-blue-100 text-rose-500'>{correctPrompt}</p>
+          <p className='text-xl font-bold'>正解</p>
+          <p ref={promptRefCor} className='flex justify-center items-center text-xl w-full rounded-md bg-blue-100 text-rose-500'>{correctPrompt}</p>
           <Image
             src={`data:image/png;base64,${correctImage}`}
             alt="correctImage"
@@ -125,7 +130,7 @@ export default function AnswerPage() {
         <Link href="/SinglePlayPage" onClick={() => dispatch(incrementQNum())} className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           次の問題へ
         </Link>
-        <Link href="/" className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+        <Link href="/" className='m-2 border-2 border-blue-500 hover:bg-blue-700 hover:text-white text-blue-500 font-bold py-2 px-4 rounded-full'>
           ホームへ戻る
         </Link>
       </div>
