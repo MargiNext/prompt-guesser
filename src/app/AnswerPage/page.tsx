@@ -17,6 +17,7 @@ export default function AnswerPage() {
   const textData = useSelector((state: RootState) => state.answerData.answerPrompt)
   const correctPrompt = useSelector((state: RootState) => state.correctData.correctPrompt)
   const correctImage = useSelector((state: RootState) => state.correctData.correctImage)
+  const qnum = useSelector((state: RootState) => state.qNumData.qNumber)
   const [genImg, setGenImg] = useState<GenImg | null>(null);
   const [loading, setLoading] = useState(true);
   const [preset, setPreset] = useState(true);
@@ -127,12 +128,14 @@ export default function AnswerPage() {
         </div>
       </div>
       <div className='flex flex-col m-12'>
-        <Link href="/SinglePlayPage" onClick={()=>{
-          dispatch(incrementQNum());
-          dispatch(initAnswerData());
-        }} className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
-          次の問題へ
-        </Link>
+        {qnum < 5 && (
+          <Link href="/SinglePlayPage" onClick={()=>{
+            dispatch(incrementQNum());
+            dispatch(initAnswerData());
+          }} className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+            次の問題へ
+          </Link>
+        )}
         <Link href="/" className='m-2 border-2 border-blue-500 hover:bg-blue-700 hover:text-white text-blue-500 font-bold py-2 px-4 rounded-full'>
           ホームへ戻る
         </Link>
