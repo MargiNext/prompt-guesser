@@ -21,6 +21,9 @@ export const dataSlice = createSlice({
     setAnswerData: (state, action: PayloadAction<string>) => {
       state.answerPrompt = action.payload
     },
+    initAnswerData: (state) => {
+      state.answerPrompt = ''
+    },
     setCorrectData: (state, action: PayloadAction<{ prompt: string; img: string }>) => {
       state.correctPrompt = action.payload.prompt
       state.correctImage = action.payload.img
@@ -35,6 +38,7 @@ export const dataSlice = createSlice({
 })
 
 export const { setAnswerData } = dataSlice.actions;
+export const { initAnswerData } = dataSlice.actions;
 export const { setCorrectData } = dataSlice.actions;
 export const { incrementQNum } = dataSlice.actions;
 export const { initQNum } = dataSlice.actions;

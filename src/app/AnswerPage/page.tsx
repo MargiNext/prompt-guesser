@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
 import { useEffect, useState, useRef } from 'react';
-import { incrementQNum } from '../reducers/dataReducer';
+import { incrementQNum, initAnswerData } from '../reducers/dataReducer';
 import { Header } from '@/app/components/Header'
 
 interface GenImg {
@@ -127,7 +127,10 @@ export default function AnswerPage() {
         </div>
       </div>
       <div className='flex flex-col m-12'>
-        <Link href="/SinglePlayPage" onClick={() => dispatch(incrementQNum())} className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+        <Link href="/SinglePlayPage" onClick={()=>{
+          dispatch(incrementQNum());
+          dispatch(initAnswerData());
+        }} className='m-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           次の問題へ
         </Link>
         <Link href="/" className='m-2 border-2 border-blue-500 hover:bg-blue-700 hover:text-white text-blue-500 font-bold py-2 px-4 rounded-full'>

@@ -3,7 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { use } from 'react';
 import { useDispatch } from 'react-redux';
-import { initQNum } from '@/app/reducers/dataReducer';
+import { initQNum, initAnswerData } from '@/app/reducers/dataReducer';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,7 +26,10 @@ const Home: React.FC = () => {
         予測しましょう！
       </div>
       <div className='m-6'>
-        <Link href="/SinglePlayPage" onClick={()=>dispatch(initQNum())} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+        <Link href="/SinglePlayPage" onClick={()=>{
+          dispatch(initQNum());
+          dispatch(initAnswerData());
+          }} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
           ひとりであそぶ
         </Link>
       </div>
