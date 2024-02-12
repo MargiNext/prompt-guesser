@@ -90,8 +90,8 @@ export default function AnswerPage() {
       <div className='flex w-full flex-col md:flex-row'>
         <div className='flex w-full flex-col items-center text-center justify-center'>
           <p className='text-xl font-bold'>回答</p>
-          <p ref={promptRefAns} className='flex justify-center items-center text-xl w-full rounded-md bg-blue-100 text-gray-600'>{textData}</p>
-          <div ref={containerRef} className='border-2 rounded-md flex w-full justify-center items-center'>
+          <p ref={promptRefAns} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md text-gray-600'>{textData}</p>
+          <div ref={containerRef} className='rounded-md flex w-full justify-center items-center bg-gray-200'>
             {preset && loading && (
               <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
                 あなたのプロンプトで画像生成
@@ -115,7 +115,7 @@ export default function AnswerPage() {
         </div>
         <div className='flex mt-8 md:mt-0 w-full flex-col items-center justify-center'>
           <p className='text-xl font-bold'>正解</p>
-          <p ref={promptRefCor} className='flex justify-center items-center text-xl w-full rounded-md bg-blue-100 text-rose-500'>{correctPrompt}</p>
+          <p ref={promptRefCor} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md bg-gray-100 text-rose-500'>{correctPrompt}</p>
           <Image
             src={`data:image/png;base64,${correctImage}`}
             alt="correctImage"
