@@ -4,14 +4,13 @@ import Link from 'next/link';
 import { use } from 'react';
 import { useDispatch } from 'react-redux';
 import { initQNum, initAnswerData } from '@/app/reducers/dataReducer';
+import { Header } from '@/app/components/Header';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   return (
     <main className="flex min-h-screen flex-col items-center text-center p-8">
-      <div className='flex m-6 md:m-12 text-4xl font-Tektur'>
-        Prompt Guesser
-      </div>
+      <Header isHome={true} />
       <Image
         src="/image.png"
         alt="Next.js Logo"

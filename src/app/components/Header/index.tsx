@@ -1,12 +1,19 @@
 "use client";
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/store'
+import Link from 'next/link'
+interface HeaderProps {
+  isHome: boolean;
+}
 
-export const Header: React.FC = () => {
-  const qnum = useSelector((state: RootState) => state.qNumData.qNumber)
+export const Header: React.FC<HeaderProps> = (props) => {
   return (
-    <header className="text-3xl mb-6">
-        Question. {qnum}
-    </header>
+    (props.isHome? (
+      <Link href="/" className='flex m-6 md:m-12 text-4xl font-Tektur'>
+        Prompt Guesser
+      </Link>
+    ) : (
+      <Link href="/" className='flex mb-3 md:mt-3 md:mb-6 text-3xl font-Tektur'>
+        Prompt Guesser
+      </Link>
+    ))
   );
 };

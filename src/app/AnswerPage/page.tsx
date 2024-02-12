@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
 import { useEffect, useState, useRef } from 'react';
 import { incrementQNum, initAnswerData } from '../reducers/dataReducer';
+import { QNumHeader } from '@/app/components/QNumHeader'
 import { Header } from '@/app/components/Header'
 
 interface GenImg {
@@ -86,8 +87,9 @@ export default function AnswerPage() {
     img = genImg.img;
   }
   return (
-    <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
-    <Header />
+    <main className="flex min-h-screen flex-col w-full items-center text-center p-8">
+    <Header isHome={false} />
+    <QNumHeader />
       <div className='flex w-full flex-col md:flex-row'>
         <div className='flex w-full flex-col items-center text-center justify-center'>
           <p className='text-xl font-bold'>回答</p>

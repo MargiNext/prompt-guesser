@@ -6,7 +6,8 @@ import TextArea from '../components/TextArea'
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store'
 import { setCorrectData } from '@/app/reducers/dataReducer';
-import { Header } from '@/app/components/Header'
+import { QNumHeader } from '@/app/components/QNumHeader'
+import { Header } from '@/app/components/Header';
 
 interface QuestionData {
   prompt: string;
@@ -58,8 +59,9 @@ export default function SinglePlay() {
     dispatch(setCorrectData({prompt, img}));
   };
   return (
-    <main className="flex min-h-screen flex-col w-full items-center text-center p-12">
-    <Header />
+    <main className="flex min-h-screen flex-col w-full items-center text-center p-8">
+    <Header isHome={false} />
+    <QNumHeader />
       {loading ? (
         <div ref={containerRef} className='flex w-full justify-center items-center'>
           <div className="animate-spin h-14 w-14 bg-blue-300 rounded-xl"></div>
