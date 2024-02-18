@@ -88,12 +88,26 @@ export default function AnswerPage() {
   }
   return (
     <main className="flex min-h-screen flex-col w-full items-center text-center p-8">
-    <Header isHome={false} />
-    <QNumHeader />
+      <Header isHome={false} />
+      <QNumHeader />
       <div className='flex w-full flex-col md:flex-row'>
+        {/* 正解 */}
+        <div className='flex mt-8 md:mt-0 w-full flex-col items-center justify-center'>
+          <p className='text-xl font-bold'>正解</p>
+          <p ref={promptRefCor} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md bg-white text-rose-500'>{correctPrompt}</p>
+          <Image
+            src={`data:image/png;base64,${correctImage}`}
+            alt="correctImage"
+            width={512}
+            height={512}
+            priority
+            className='rounded-md'
+          />
+        </div>
+        {/* あなたの回答 */}
         <div className='flex w-full flex-col items-center text-center justify-center'>
-          <p className='text-xl font-bold'>回答</p>
-          <p ref={promptRefAns} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md text-gray-600'>{textData}</p>
+          <p className='text-xl font-bold'>あなたの回答</p>
+          <p ref={promptRefAns} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md bg-white text-gray-600'>{textData}</p>
           <div ref={containerRef} className='rounded-md flex w-full justify-center items-center bg-gray-200'>
             {preset && loading && (
               <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
@@ -116,21 +130,9 @@ export default function AnswerPage() {
             )}
           </div>
         </div>
-        <div className='flex mt-8 md:mt-0 w-full flex-col items-center justify-center'>
-          <p className='text-xl font-bold'>正解</p>
-          <p ref={promptRefCor} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md bg-gray-100 text-rose-500'>{correctPrompt}</p>
-          <Image
-            src={`data:image/png;base64,${correctImage}`}
-            alt="correctImage"
-            width={512}
-            height={512}
-            priority
-            className='rounded-md'
-          />
-        </div>
       </div>
       <div className='flex flex-col m-12'>
-        {qnum < 5 && (
+        {qnum < 3 && (
           <Link href="/SinglePlayPage" onClick={()=>{
             dispatch(incrementQNum());
             dispatch(initAnswerData());
