@@ -32,6 +32,11 @@ const Home: React.FC = () => {
           ひとりであそぶ
         </Link>
       </div>
+      <div className='m-6'>
+        <Link href="/PrivacyPolicyPage" className='text-gray py-2 px-4'>
+          プライバシーポリシー
+        </Link>
+      </div>
     </main>
   )
 };
