@@ -62,11 +62,25 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   // sanitizing
   let questionId: Number
-  if(isNaN(parseInt(id as string, 10))) {
+  if (isNaN(parseInt(id as string, 10))) {
     return res.status(400).json({ error: "ID is invalid." })
   } else {
     questionId = parseInt(id as string, 10)
   }
+
+  // check environmental variables
+  let minValue
+  let maxValue
+  if (isNaN(parseInt(process.env.QUESTION_MIN_VALUE as string, 10)) ||
+           isNaN(parseInt(process.env.QUESTION_MAX_VALUE as string, 10))) {
+    return res.status(500).json({ error: "Cannot create questions." })
+  } else {
+    minValue = parseInt(process.env.QUESTION_MIN_VALUE as string, 10)
+    maxValue = parseInt(process.env.QUESTION_MAX_VALUE as string, 10)
+  }
+
+  // generate random value for question id
+  questionId = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue
 
   let prompt, img
   const getQuestion = async() => {
