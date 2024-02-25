@@ -22,7 +22,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ja">
+      <head>
+        <title>Prompt Guresser</title>
+      </head>
       <body className={inter.className}>
         {/* <Header /> */}
           <Provider store={store}>
