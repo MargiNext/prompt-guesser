@@ -20,7 +20,6 @@ export default function SinglePlay() {
   const containerRef = useRef<HTMLDivElement>(null);
   // const textData = useSelector((state: RootState) => state.answerData.answerPrompt)
 
-  const id = 2;
   let firstRender = true;
   const [questionData, setQuestionData] = useState<QuestionData | null>(null);
   useEffect(() => {
@@ -28,7 +27,7 @@ export default function SinglePlay() {
       firstRender = false
       const fetchData = async () => {
         try {
-          const response = await fetch(`/api/question?id=${id}`);
+          const response = await fetch(`/api/question`);
           if (response.ok) {
             const data = await response.json();
             setQuestionData(data);
@@ -53,7 +52,7 @@ export default function SinglePlay() {
       }
       fetchData();
     };
-  }, [id]);
+  }, []);
   let prompt = '';
   let img = '';
   if (questionData) {
