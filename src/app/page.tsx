@@ -1,24 +1,63 @@
 "use client";
 import Image from 'next/image'
 import Link from 'next/link';
-import { use } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { initQNum, initAnswerData } from '@/app/reducers/dataReducer';
 import { Header } from '@/app/components/Header';
 
 const Home: React.FC = () => {
   const dispatch = useDispatch();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const promptRefCor = useRef<HTMLDivElement>(null);
+  const [carousel_width, setCWidth] = useState(0);
+  const imagesDisplayNum = 3; //md以上の画面サイズで表示させる画像数
+  const imagesNum = 8;
+
+  useEffect(() => {
+    if (promptRefCor.current) {
+      const width = promptRefCor.current.offsetWidth;
+      console.log(width)
+      if (width >= 512) {
+        setCWidth(imagesNum * 100 / imagesDisplayNum);
+        console.log(imagesNum * 100 / imagesDisplayNum)
+      }
+      else {
+        setCWidth(imagesNum * 100 / 1);
+        console.log(imagesNum * 100 / 1)
+      }
+    }
+    const interval = setInterval(() => {
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % imagesNum);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+  const handleTransitionEnd = () => {
+    if (currentSlide === imagesNum - imagesDisplayNum) {
+      setCurrentSlide(0);
+    }
+  };
   return (
-    <main className="flex min-h-screen flex-col items-center text-center p-8">
+    <main ref={promptRefCor} className="flex min-h-screen flex-col items-center text-center p-8 md:px-52">
       <Header isHome={true} />
-      <Image
-        src="/image.png"
-        alt="Next.js Logo"
-        width={300}
-        height={300}
-        priority
-        className='m-6'
-      />
+      <div className="w-full overflow-x-hidden m-6">
+        <div className="flex h-full transition-transform duration-1000 ease-in-out transform" style={{ width: carousel_width+`%`, transform: `translateX(-${currentSlide * (100 / imagesNum)}%)` }} onTransitionEnd={handleTransitionEnd}>
+          { Array(8).fill(0).map((_, i) => i).map((url, index) => (
+            <div key={index} className="flex flex-row items-center justify-center w-full h-full">
+              <Image
+                src={`/${url}.png`}
+                alt={`Slide ${index + 1}`}
+                width={300}
+                height={300}
+                priority
+                objectFit='cover'
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className='flex my-6 text-xg'>
         AIが生成した画像を見て<br/>
         生成に使用されたキーワードを<br/>
