@@ -63,14 +63,25 @@ const Home: React.FC = () => {
         生成に使用されたキーワードを<br/>
         予測しましょう！
       </div>
-      <div className='m-6'>
-        <Link href="/SinglePlayPage" onClick={()=>{
-          dispatch(initQNum());
-          dispatch(initAnswerData());
-          }} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
-          ひとりであそぶ
-        </Link>
-      </div>
+      <Link href="/SinglePlayPage"
+            onClick={()=>{
+              dispatch(initQNum());
+              dispatch(initAnswerData());
+            }}
+            className='mt-6 mb-3 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'
+      >
+        ひとりであそぶ（English）
+      </Link>
+      <Link href=""
+            className='m-3 bg-blue-300 text-white font-bold py-2 px-4 rounded-full'
+      >
+        ひとりであそぶ（Japanese）
+      </Link>
+      <Link href=""
+            className='m-3 bg-blue-300 text-white font-bold py-2 px-4 rounded-full'
+      >
+        みんなであそぶ
+      </Link>
       <div className='m-6'>
         <Link href="/PrivacyPolicyPage" className='text-gray py-2 px-4'>
           プライバシーポリシー
