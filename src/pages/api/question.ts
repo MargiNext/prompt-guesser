@@ -52,21 +52,23 @@ async function getImage(key: string): Promise<any> {
 /*
   * return question
   * -------------------
-  * input   : id
   * output  : prompt
   *         : img
 */
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // parse request
-  const id: string = req.query.id as string
-
-  // sanitizing
-  let questionId: Number
-  if(isNaN(parseInt(id as string, 10))) {
-    return res.status(400).json({ error: "ID is invalid." })
+  // check environmental variables
+  let minValue
+  let maxValue
+  if (isNaN(parseInt(process.env.QUESTION_MIN_VALUE as string, 10)) ||
+           isNaN(parseInt(process.env.QUESTION_MAX_VALUE as string, 10))) {
+    return res.status(500).json({ error: "Cannot create questions." })
   } else {
-    questionId = parseInt(id as string, 10)
+    minValue = parseInt(process.env.QUESTION_MIN_VALUE as string, 10)
+    maxValue = parseInt(process.env.QUESTION_MAX_VALUE as string, 10)
   }
+
+  // generate random value for question id
+  const questionId = Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue
 
   let prompt, img
   const getQuestion = async() => {
@@ -87,5 +89,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
   await getQuestion()
 
-  return res.status(200).json({ id: questionId, prompt: prompt, img: img})
+  return res.status(200).json({ prompt: prompt, img: img})
 }
