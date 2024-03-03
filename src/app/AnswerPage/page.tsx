@@ -41,20 +41,20 @@ export default function AnswerPage() {
       const width = promptRefAns.current.offsetWidth;
       if (width >= 512) {
         promptRefAns.current.style.width = `512px`;
-        promptRefAns.current.style.height = `64px`;
+        promptRefAns.current.style.height = `96px`;
       }
       else {
-        promptRefAns.current.style.height = `32px`;
+        promptRefAns.current.style.height = `128px`;
       }
     }
     if (promptRefCor.current) {
       const width = promptRefCor.current.offsetWidth;
       if (width >= 512) {
         promptRefCor.current.style.width = `512px`;
-        promptRefCor.current.style.height = `64px`;
+        promptRefCor.current.style.height = `96px`;
       }
       else {
-        promptRefCor.current.style.height = `32px`;
+        promptRefCor.current.style.height = `128px`;
         console.log(width)
       }
     }
@@ -92,9 +92,13 @@ export default function AnswerPage() {
       <QNumHeader />
       <div className='flex w-full flex-col md:flex-row'>
         {/* 正解 */}
-        <div className='flex mt-8 md:mt-0 w-full flex-col items-center justify-center'>
+        <div className='flex mt-8 w-full flex-col items-center justify-center'>
           <p className='text-xl font-bold'>正解</p>
-          <p ref={promptRefCor} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md bg-white text-rose-500'>{correctPrompt}</p>
+          <p ref={promptRefCor} className='m-4 flex justify-center items-center text-base w-full rounded-md bg-white text-rose-500'>
+            <div style={{maxHeight: '100%', overflowY: 'scroll'}}>
+              {correctPrompt}
+            </div>
+          </p>
           <Image
             src={`data:image/png;base64,${correctImage}`}
             alt="correctImage"
@@ -105,9 +109,13 @@ export default function AnswerPage() {
           />
         </div>
         {/* あなたの回答 */}
-        <div className='flex w-full flex-col items-center text-center justify-center'>
-          <p className='text-xl font-bold'>あなたの回答</p>
-          <p ref={promptRefAns} className='border-2 border-indigo-500 flex justify-center items-center text-xl w-full rounded-md bg-white text-gray-600'>{textData}</p>
+        <div className='flex mt-8 w-full flex-col items-center text-center justify-center'>
+          <p className='text-xl font-bold mt-10 md:mt-0'>あなたの回答</p>
+          <p ref={promptRefAns} className='m-4 p-2 flex justify-center items-center text-base w-full rounded-md bg-white text-gray-600'>
+            <div style={{maxHeight: '100%', overflowY: 'scroll'}}>
+              {textData}
+            </div>
+          </p>
           <div ref={containerRef} className='rounded-md flex w-full justify-center items-center bg-gray-200'>
             {preset && loading && (
               <Link href="/AnswerPage" onClick={handleGenImg} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
