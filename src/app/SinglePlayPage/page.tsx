@@ -85,9 +85,15 @@ export default function SinglePlay() {
       </div>
       
       <div className="mt-12">
-        <Link href="/AnswerPage" onClick={handleSetText} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
-          予測する
-        </Link>
+        {loading ? (
+          <Link href="" className='bg-blue-300 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+            予測する
+          </Link>
+        ) : (
+          <Link href="/AnswerPage" onClick={handleSetText} className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full'>
+            予測する
+          </Link>
+        )}
       </div>
     </main>
     // </Provider>
