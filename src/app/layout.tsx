@@ -23,7 +23,6 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-<<<<<<< HEAD
     <html lang="ja">
       <head>
         <title>Prompt Guresser</title>
