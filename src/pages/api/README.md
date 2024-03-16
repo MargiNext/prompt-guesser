@@ -1,5 +1,12 @@
 # API の仕様
 
+## API
+
+- /api/question
+    - 問題生成
+- /api/create_image
+    - 画像生成
+
 ## 環境変数
 
 API を動かすために必要な環境変数
@@ -20,8 +27,13 @@ API を動かすために必要な環境変数
 ## ローカルでのテスト方法
 
 ex. question  
-curl -G -d id=1 http://localhost:3000/api/problem
+
 ```
+curl -G -d id=1 http://localhost:3000/api/question
+```
+
 ex. create_image   
+
+```
 curl -G -d prompt=house http://localhost:3000/api/create_image
 ```
