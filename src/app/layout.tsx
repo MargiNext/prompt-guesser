@@ -8,6 +8,7 @@ import './globals.css'
 // import Provide from './provide'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import GoogleAnalytics from '../components/GoogleAnalytics'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,6 +26,8 @@ export default function RootLayout({
     <html lang="ja">
       <head>
         <title>Prompt Guresser</title>
+        <GoogleAnalytics />
+	support-google-analytics
       </head>
       <body className={inter.className}>
         {/* <Header /> */}
