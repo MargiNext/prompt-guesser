@@ -7,6 +7,7 @@ import { useEffect, useState, useRef } from 'react';
 import { incrementQNum, initAnswerData } from '../reducers/dataReducer';
 import { QNumHeader } from '@/app/components/QNumHeader'
 import { Header } from '@/app/components/Header'
+import kuromoji from 'kuromoji';
 
 interface GenImg {
   // prompt: string;
@@ -25,8 +26,34 @@ export default function AnswerPage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const promptRefAns = useRef<HTMLDivElement>(null);
   const promptRefCor = useRef<HTMLDivElement>(null);
+  const [str1, setStr1] = useState("");
+  const [str2, setStr2] = useState("");
+  const [matchRate, setMatchRate] = useState(0);
 
   useEffect(() => {
+    kuromoji.builder({ dicPath: "/dict" }).build((err, tokenizer) => {
+      if(err){
+        console.log(err)
+      } else {
+        const compare = () => {
+          const str1 = '車の中にいる犬'
+          const str2 = '車の中にいる猫'
+          const tokens1 = tokenizer.tokenize(str1);
+          const tokens2 = tokenizer.tokenize(str2);
+
+          const words1 = tokens1.filter(token => /^(名詞|動詞|形容詞)$/.test(token.pos)).map(token => token.surface_form);
+          const words2 = tokens2.filter(token => /^(名詞|動詞|形容詞)$/.test(token.pos)).map(token => token.surface_form);
+          console.log(words1)
+
+          const intersection = words1.filter((word) => words2.includes(word));
+          const rate = (intersection.length / words1.length) * 100;
+          setMatchRate(rate);
+        };
+
+        compare();
+      }
+    })
+
     if (containerRef.current) {
       const width = containerRef.current.offsetWidth;
       if (width > 512) {
@@ -90,6 +117,7 @@ export default function AnswerPage() {
     <main className="flex min-h-screen flex-col w-full items-center text-center p-8">
       <Header isHome={false} />
       <QNumHeader />
+      <p>一致率: {matchRate}%</p>
       <div className='flex w-full flex-col md:flex-row'>
         {/* 正解 */}
         <div className='flex mt-8 w-full flex-col items-center justify-center'>

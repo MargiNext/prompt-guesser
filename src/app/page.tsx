@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { initQNum, initAnswerData } from '@/app/reducers/dataReducer';
 import { Header } from '@/app/components/Header';
 
+
 const Home: React.FC = () => {
   const dispatch = useDispatch();
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -15,17 +16,13 @@ const Home: React.FC = () => {
   const imagesNum = 8;
 
   useEffect(() => {
-    sessionStorage.setItem('user_id', Math.random().toString(32).substring(2))
     if (promptRefCor.current) {
       const width = promptRefCor.current.offsetWidth;
-      console.log(width)
       if (width >= 512) {
         setCWidth(imagesNum * 100 / imagesDisplayNum);
-        console.log(imagesNum * 100 / imagesDisplayNum)
       }
       else {
         setCWidth(imagesNum * 100 / 1);
-        console.log(imagesNum * 100 / 1)
       }
     }
     const interval = setInterval(() => {
@@ -58,6 +55,29 @@ const Home: React.FC = () => {
           ))}
         </div>
       </div>
+
+      {/* <div>
+      <h1>日本語の文字列比較</h1>
+      <p>
+        <label htmlFor="str1">文字列1:</label>
+        <input
+          type="text"
+          id="str1"
+          value={str1}
+          onChange={(e) => setStr1(e.target.value)}
+        />
+      </p>
+      <p>
+        <label htmlFor="str2">文字列2:</label>
+        <input
+          type="text"
+          id="str2"
+          value={str2}
+          onChange={(e) => setStr2(e.target.value)}
+        />
+      </p>
+      <p>一致率: {matchRate}%</p>
+    </div> */}
 
       <div className='flex my-6 text-xg'>
         AIが生成した画像を見て<br/>
