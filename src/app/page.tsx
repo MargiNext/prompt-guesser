@@ -15,6 +15,7 @@ const Home: React.FC = () => {
   const imagesNum = 8;
 
   useEffect(() => {
+    sessionStorage.setItem('user_id', Math.random().toString(32).substring(2))
     if (promptRefCor.current) {
       const width = promptRefCor.current.offsetWidth;
       console.log(width)

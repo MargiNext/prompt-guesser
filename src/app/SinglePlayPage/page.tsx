@@ -27,7 +27,8 @@ export default function SinglePlay() {
       firstRender = false
       const fetchData = async () => {
         try {
-          const response = await fetch(`/api/question`);
+          const response = await fetch('/api/question?userID=' + sessionStorage.getItem('user_id'));
+          // const response = await fetch(`/api/question`);
           if (response.ok) {
             const data = await response.json();
             setQuestionData(data);
